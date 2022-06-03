@@ -4,14 +4,12 @@ import sys
 sys.path.append('../')
 import multiEG
 import matplotlib.pyplot as plt
-#plt.axes().set_aspect(2)
 
 def time_this(s, iterations=20):
     t = timeit(s, globals=globals(), number=iterations) * 1000 / iterations
     return t
 
-
-n_log_list = range(0, 10)
+n_log_list = range(0, 11)
 n_list = [2**i for i in n_log_list]
 #n_list = list(range(1, 17))
 k_list = [8, 13, 16]
@@ -57,14 +55,20 @@ for k_i, k in enumerate(k_list):
         result_log[k_i][n_i] = result_enc_log[n_i][k_i] + result_proof_log[n_i][k_i]
         result_batch[k_i][n_i] = result_enc_batch[n_i][k_i] + result_proof_batch[n_i][k_i]
 
-    plt.plot(n_log_list, result_log[k_i], label = "Log proof")
-    plt.plot(n_log_list, result_batch[k_i], label = "Batch proof")
+    plt.plot(n_log_list, result_log[k_i], "-", label = "Log proof, k = " + str(k))
+    plt.plot(n_log_list, result_batch[k_i], "--", color=plt.gca().lines[-1].get_color(), label = "Batch proof, k = " + str(k))
 
-    plt.xlabel("log_2(n) for n bits")
-    #plt.xlabel("number of bits")
-    plt.ylabel("Time (ms.)")
-    plt.legend()
-    plt.savefig("exp_log_nopre_comparison_" + str(k_list[k_i]) + ".png")
-    plt.cla()
+    ax = plt.gca()
+    xleft, xright = ax.get_xlim()
+    ybottom, ytop = ax.get_ylim()
+    ax.set_aspect(abs((xright-xleft)/(ybottom-ytop))*0.4)
+
+plt.xlabel("log_2(n) for n bits")
+#plt.xlabel("number of bits")
+plt.ylabel("Time (ms.)")
+plt.legend()
+plt.savefig("exp_log_batch_comparison_nopre.png")
+plt.show()
+plt.cla()
 print(result_log)
 print(result_batch)

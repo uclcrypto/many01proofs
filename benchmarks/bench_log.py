@@ -1,22 +1,3 @@
-"""
-3. Pour la preuve en log, j'ai l'impression que l'histoire la plus intéressante
-est l'évolution du speedup de la preuve log par rapport à une preuve de base
-(la baseline? ou ce sera peut-être plus marquant en donnant la batch
-        compressé?) en fonction de n (on prend n= 2^i pour i allant de 1 à 16
-                par exemple, en prenant le k optimal pour chaque valeur de n).
-        Ici, on compare juste le coût des preuves, en laissant tomber le coût
-        du chiffrement. Message: (i) même pour de petits n genre n=8, la preuve
-        en log est sympa; (ii) quand n grandit, la preuve en log écrase les
-        autres (speedup énorme) -- c'est montrer cela qu'on ne met pas le coût
-        du chiffrement dans le graphe. (iii) même si la preuve en log est
-        asymptotiquement plus coûteuse, cela ne se manifeste pas pour des
-        valeurs réalistes. (iv) Par contre, on observe un pic bien intéressant
-        de l'efficactité autour de quelques milliers de preuves à calculer.
-        Leçon: si on beaucoup de preuves à calculer, mieux vaut les calculer
-        par paquets de quelques milliers: ce sera plus rapide, et la taille de
-        la preuve reste très petite par rapport à celle des chiffrés de toute
-        manière.
-"""
 import matplotlib.pyplot as plt
 from math import sqrt
 from timeit import timeit

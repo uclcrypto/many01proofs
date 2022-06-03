@@ -3,17 +3,14 @@ from gmpy2 import mpz
 import sys
 sys.path.append('../')
 import multiEG
-import matplotlib.pyplot as plt
-#plt.axes().set_aspect(2)
 
 def time_this(s, iterations=10):
     t = timeit(s, globals=globals(), number=iterations) * 1000 / iterations
     return t
 
-
-n_log_list = range(0, 10)
+n_log_list = range(0, 11)
 n_list = [2**i for i in n_log_list]
-k_list = list(range(1, 13))
+k_list = list(range(1, 14))
 votes = [[mpz(i % 2) for i in range(n)] for n in n_list]
 m = 4
 
@@ -53,7 +50,6 @@ for n_i, n in enumerate(n_list):
         result_proof_log[n_i]), key = lambda x: sum(x)))
     
 # Batch proof computations
-
 ciphertexts = [myEG.long_multi_enc(v) for v in votes]
 for k_i, k in enumerate(k_list):
     print(k_i)
@@ -76,11 +72,17 @@ for n_i, n in enumerate(n_list):
 print(result_log)
 print(result_batch)
 
+import matplotlib.pyplot as plt
 plt.plot(n_log_list, result_log, label = "Log proof")
 plt.plot(n_log_list, result_batch, label = "Batch proof")
+
+ax = plt.gca()
+xleft, xright = ax.get_xlim()
+ybottom, ytop = ax.get_ylim()
+ax.set_aspect(abs((xright-xleft)/(ybottom-ytop))*0.4)
 
 plt.xlabel("log_2(n) for n bits")
 plt.ylabel("Time (ms.)")
 plt.legend()
-plt.savefig("exp_log_comparison.png")
-#plt.show()
+plt.savefig("exp_log_batch_comparison_pre.png")
+plt.show()
