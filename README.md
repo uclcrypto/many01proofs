@@ -1,6 +1,8 @@
-## Many 0-1 proofs
+# Many 0-1 proofs
 
-# Files
+This repository contains the companion code for the paper "How to Verifiably Encrypt Many Bits for an Election?" by Henri Devillez, Olivier Pereira and Thomas Peters, published at ESORICS 2022. The latest version of the paper is available on [ePrint](https://eprint.iacr.org/2022/1051).
+
+## Files
 
 The repository contains the following files:
 - `group_params.py`: contains the parameters of the group used in the
@@ -14,7 +16,7 @@ The repository contains the following files:
 
 These files require the module gmpy2 (tested with version 2.0.8).
 
-# Benchmarks
+## Benchmarks
 
 The repository contains the following benchmarks:
 - `bench_group.py`
